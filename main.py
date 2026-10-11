@@ -6,7 +6,8 @@ from aiogram.filters import Command
 from aiohttp import web
 
 # Проверьте токен вашего оранжевого бота!
-TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-0bq8fqsEuM"
+TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-Obq8fqsEuM"
+
 WEBAPP_URL = "https://vercel.app"
 
 logging.basicConfig(level=logging.INFO)

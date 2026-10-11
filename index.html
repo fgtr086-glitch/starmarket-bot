@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StarMarket Premium</title>
-    <!-- Подключаем официальную библиотеку Telegram Mini Apps JS API -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org"></script>
     <style>
         body {
             background-color: #0D0D0C;
@@ -14,6 +13,7 @@
             margin: 0;
             padding: 0;
             padding-bottom: 80px;
+            overflow-x: hidden;
         }
         .header {
             padding: 20px;
@@ -46,6 +46,16 @@
             letter-spacing: 0.5px;
             color: #A0A0A0;
         }
+        
+        /* Стили для вкладок (экранов) */
+        .page {
+            display: none; /* По умолчанию скрываем все экраны */
+        }
+        .page.active {
+            display: block; /* Показываем только активный экран */
+        }
+
+        /* Экран Маркета */
         .vip-card {
             margin: 0 20px;
             background: linear-gradient(145deg, #1A1A19, #121211);
@@ -111,6 +121,51 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
         }
+
+        /* Экран личного профиля */
+        .profile-container {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .avatar-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37, #FFE082);
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #000;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .username-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .status-text {
+            font-size: 14px;
+            color: #D4AF37;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+        .stats-box {
+            background: #161615;
+            border: 1px solid #262625;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Нижнее навигационное меню */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -131,6 +186,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            width: 33%;
         }
         .nav-item.active {
             color: #D4AF37;
@@ -145,52 +205,93 @@
 
     <div class="header">
         <div class="logo">STARMARKET PREMIUM</div>
-        <div class="balance-badge">🌟 <span id="user-stars">0</span> Stars</div>
+        <div class="balance-badge">🌟 <span id="global-stars">0</span> Stars</div>
     </div>
 
-    <div class="section-title">👑 VIP Предложение дня</div>
-    <div class="vip-card">
-        <div class="vip-badge">VIP</div>
-        <div style="font-size: 48px; text-align: center; margin-bottom: 10px;">🆔</div>
-        <div style="font-weight: bold; font-size: 18px; text-align: center;">@gold_ceo</div>
-        <p style="color: #A0A0A0; text-align: center; font-size: 14px; margin: 5px 0 15px 0;">Эксклюзивный юзернейм Telegram</p>
-        <!-- Прикручиваем клик-функцию с отправкой ID товара и цены -->
-        <button class="buy-btn" onclick="buyItem('top_username', 500)">КУПИТЬ ЗА 500 🌟</button>
-    </div>
-
-    <div class="section-title">📦 Новые поступления</div>
-    <div class="market-grid">
-        <div class="product-card">
-            <div class="product-img">🎁</div>
-            <div class="product-name">Telegram Premium 1 год</div>
-            <button class="buy-btn" onclick="buyItem('tg_premium_1y', 299)">299 🌟</button>
+    <!-- ЭКРАН 1: МАРКЕТ С ТОВАРАМИ -->
+    <div id="market-page" class="page active">
+        <div class="section-title">👑 VIP Предложение дня</div>
+        <div class="vip-card">
+            <div class="vip-badge">VIP</div>
+            <div style="font-size: 48px; text-align: center; margin-bottom: 10px;">🆔</div>
+            <div style="font-weight: bold; font-size: 18px; text-align: center;">@gold_ceo</div>
+            <p style="color: #A0A0A0; text-align: center; font-size: 14px; margin: 5px 0 15px 0;">Эксклюзивный юзернейм Telegram</p>
+            <button class="buy-btn">ЗАКРЫТЬ И НАЖАТЬ КНОПКУ В ЧАТЕ</button>
         </div>
-        <div class="product-card">
-            <div class="product-img">🖼️</div>
-            <div class="product-name">NFT Gift #884</div>
-            <button class="buy-btn" onclick="buyItem('nft_884', 150)">150 🌟</button>
+
+        <div class="section-title">📦 Новые поступления</div>
+        <div class="market-grid">
+            <div class="product-card">
+                <div class="product-img">🎁</div>
+                <div class="product-name">Telegram Premium 1 год</div>
+                <button class="buy-btn">В ЧАТЕ</button>
+            </div>
+            <div class="product-card">
+                <div class="product-img">🖼️</div>
+                <div class="product-name">NFT Gift #884</div>
+                <button class="buy-btn">В ЧАТЕ</button>
+            </div>
         </div>
     </div>
 
+    <!-- ЭКРАН 2: ДОБАВЛЕНИЕ ЛОТА -->
+    <div id="sell-page" class="page">
+        <div class="section-title">➕ Выставить лот на продажу</div>
+        <div style="padding: 30px 20px; text-align: center; color: #A0A0A0;">
+            <div style="font-size: 48px; margin-bottom: 15px;">Заявка</div>
+            Функция создания новых лотов находится на стадии подключения к смарт-контракту.
+        </div>
+    </div>
+
+    <!-- ЭКРАН 3: ЛИЧНЫЙ ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
+    <div id="profile-page" class="page">
+        <div class="profile-container">
+            <div class="avatar-placeholder" id="user-avatar">👤</div>
+            <div class="username-text" id="user-name">Premium Клиент</div>
+            <div class="status-text">Уровень: Gold CEO 👑</div>
+            
+            <div class="stats-box">
+                <span>Личный ID:</span>
+                <span style="color: #A0A0A0;" id="user-id">Загрузка...</span>
+            </div>
+            <div class="stats-box">
+                <span>Мои покупки:</span>
+                <span style="color: #FFE082; font-weight: bold;">0 лотов</span>
+            </div>
+            <div class="stats-box">
+                <span>Куплено NFT:</span>
+                <span style="color: #FFE082; font-weight: bold;">0 штук</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- НИЖНЕЕ НАВИГАЦИОННОЕ МЕНЮ -->
     <div class="nav-bar">
-        <a href="#" class="nav-item active"><span class="nav-icon">🛒</span>Маркет</a>
-        <a href="#" class="nav-item"><span class="nav-icon">➕</span>Продать</a>
-        <a href="#" class="nav-item"><span class="nav-icon">👤</span>Профиль</a>
+        <button class="nav-item active" id="btn-market" onclick="switchPage('market')">
+            <span class="nav-icon">🛒</span>Маркет
+        </button>
+        <button class="nav-item" id="btn-sell" onclick="switchPage('sell')">
+            <span class="nav-icon">➕</span>Продать
+        </button>
+        <button class="nav-item" id="btn-profile" onclick="switchPage('profile')">
+            <span class="nav-icon">👤</span>Профиль
+        </button>
     </div>
 
     <script>
-        // Инициализируем объект Telegram WebApp
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Скрипт, который ловит клик по кнопке и отправляет данные в чат боту
-        function buyItem(itemId, price) {
-            tg.sendData(JSON.stringify({
-                action: "buy",
-                id: itemId,
-                cost: price
-            }));
+        // Автоматически вытаскиваем данные пользователя из его Telegram-аккаунта!
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const user = tg.initDataUnsafe.user;
+            document.getElementById('user-name').innerText = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+            document.getElementById('user-id').innerText = user.id;
+            if (user.username) {
+                document.getElementById('user-avatar').innerText = user.first_name.charAt(0);
+            }
         }
-    </script>
-</body>
-</html>
+
+        // ФУНКЦИЯ ДЛЯ МГНОВЕННОГО ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ
+        function switchPage(pageName) {
+            // Скрываем все экраны

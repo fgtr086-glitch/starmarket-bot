@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StarMarket Premium</title>
-    <script src="https://telegram.org"></script>
+    <!-- Подключаем официальную библиотеку Telegram Mini Apps JS API -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
             background-color: #0D0D0C;
@@ -153,7 +154,8 @@
         <div style="font-size: 48px; text-align: center; margin-bottom: 10px;">🆔</div>
         <div style="font-weight: bold; font-size: 18px; text-align: center;">@gold_ceo</div>
         <p style="color: #A0A0A0; text-align: center; font-size: 14px; margin: 5px 0 15px 0;">Эксклюзивный юзернейм Telegram</p>
-        <button class="buy-btn">КУПИТЬ ЗА 500 🌟</button>
+        <!-- Прикручиваем клик-функцию с отправкой ID товара и цены -->
+        <button class="buy-btn" onclick="buyItem('top_username', 500)">КУПИТЬ ЗА 500 🌟</button>
     </div>
 
     <div class="section-title">📦 Новые поступления</div>
@@ -161,12 +163,12 @@
         <div class="product-card">
             <div class="product-img">🎁</div>
             <div class="product-name">Telegram Premium 1 год</div>
-            <button class="buy-btn">299 🌟</button>
+            <button class="buy-btn" onclick="buyItem('tg_premium_1y', 299)">299 🌟</button>
         </div>
         <div class="product-card">
             <div class="product-img">🖼️</div>
             <div class="product-name">NFT Gift #884</div>
-            <button class="buy-btn">150 🌟</button>
+            <button class="buy-btn" onclick="buyItem('nft_884', 150)">150 🌟</button>
         </div>
     </div>
 
@@ -177,8 +179,18 @@
     </div>
 
     <script>
+        // Инициализируем объект Telegram WebApp
         const tg = window.Telegram.WebApp;
         tg.expand();
+
+        // Скрипт, который ловит клик по кнопке и отправляет данные в чат боту
+        function buyItem(itemId, price) {
+            tg.sendData(JSON.stringify({
+                action: "buy",
+                id: itemId,
+                cost: price
+            }));
+        }
     </script>
 </body>
 </html>

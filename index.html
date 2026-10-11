@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarMarket Premium</title>
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            background-color: #0D0D0C;
+            color: #FFFFFF;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+        .header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #262625;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .balance-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #D4AF37;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            color: #FFE082;
+            font-size: 14px;
+        }
+        .section-title {
+            padding: 20px 20px 10px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #A0A0A0;
+        }
+        .vip-card {
+            margin: 0 20px;
+            background: linear-gradient(145deg, #1A1A19, #121211);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #D4AF37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .vip-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #D4AF37;
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 0 20px;
+        }
+        .product-card {
+            background: #161615;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #262625;
+            text-align: center;
+        }
+        .product-img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px auto;
+            background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(0,0,0,0) 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .buy-btn {
+            background: linear-gradient(90deg, #FFE082, #D4AF37, #FFE082);
+            background-size: 200% auto;
+            color: #0D0D0C;
+            border: none;
+            padding: 8px 0;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65px;
+            background: #090909;
+            border-top: 1px solid #262625;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        .nav-item {
+            color: #A0A0A0;
+            text-decoration: none;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav-item.active {
+            color: #D4AF37;
+        }
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">STARMARKET PREMIUM</div>
+        <div class="balance-badge">🌟 <span id="user-stars">0</span> Stars</div>
+    </div>
+
+    <div class="section-title">👑 VIP Предложение дня</div>
+    <div class="vip-card">
+        <div class="vip-badge">VIP</div>
+        <div style="font-size: 48px; text-align: center; margin-bottom: 10px;">🆔</div>
+        <div style="font-weight: bold; font-size: 18px; text-align: center;">@gold_ceo</div>
+        <p style="color: #A0A0A0; text-align: center; font-size: 14px; margin: 5px 0 15px 0;">Эксклюзивный юзернейм Telegram</p>
+        <button class="buy-btn">КУПИТЬ ЗА 500 🌟</button>
+    </div>
+
+    <div class="section-title">📦 Новые поступления</div>
+    <div class="market-grid">
+        <div class="product-card">
+            <div class="product-img">🎁</div>
+            <div class="product-name">Telegram Premium 1 год</div>
+            <button class="buy-btn">299 🌟</button>
+        </div>
+        <div class="product-card">
+            <div class="product-img">🖼️</div>
+            <div class="product-name">NFT Gift #884</div>
+            <button class="buy-btn">150 🌟</button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <a href="#" class="nav-item active"><span class="nav-icon">🛒</span>Маркет</a>
+        <a href="#" class="nav-item"><span class="nav-icon">➕</span>Продать</a>
+        <a href="#" class="nav-item"><span class="nav-icon">👤</span>Профиль</a>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+    </script>
+</body>
+</html>

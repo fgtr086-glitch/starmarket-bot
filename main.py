@@ -8,7 +8,8 @@ from aiohttp import web
 # Проверьте токен вашего оранжевого бота!
 TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-Obq8fqsEuM"
 
-WEBAPP_URL = "https://vercel.app"
+WEBAPP_URL = "https://fgtr086-glitch.github.io/starmarket-bot/"
+
 
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)

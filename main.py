@@ -5,7 +5,8 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, W
 from aiogram.filters import Command
 from aiohttp import web
 
-TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-0bq8fqsEuM"
+TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-Obq8fqsEuM"
+
 # Задаем вашу точную рабочую ссылку на дизайн!
 WEBAPP_URL = "https://fgtr086-glitch.github.io/starmarket-bot/"
 

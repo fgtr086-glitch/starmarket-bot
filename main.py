@@ -4,8 +4,9 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.filters import Command
 
+# Проверьте, чтобы этот токен в точности совпадал с BotFather!
 TOKEN = "8659582793:AAFuqmD6Ihf6igZuBClfg-X7-0bq8fqsEuM"
-WEBAPP_URL = "https://codepen.io"
+WEBAPP_URL = "https://vercel.app"
 
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)
@@ -28,8 +29,11 @@ async def cmd_start(message: Message):
     )
 
 async def main():
-    print("🚀 Робот StarMarket успешно запущен...")
+    # Перед запуском принудительно очищаем старые зависшие запросы в Telegram
+    await bot.delete_webhook(drop_pending_updates=True)
+    print("🚀 Робот StarMarket успешно запущен и очистил очередь запросов...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
     asyncio.run(main())
+
